@@ -1,5 +1,5 @@
-''' Executing this function initiates the application of sentiment
-    analysis to be executed over the Flask channel and deployed on
+''' Executing this function initiates the application of emotion
+    detection to be executed over the Flask channel and deployed on
     localhost:5000.
 '''
 from flask import Flask, render_template, request
@@ -9,6 +9,8 @@ app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def sent_detector():
+    ''' Analyze the text and determine the domminant emotion
+    '''
     # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
 
@@ -26,19 +28,21 @@ def sent_detector():
     # Check if the dominant is None, indicating an error or invalid input
     if dominant is None:
         return "Invalid text! Please try again."
-    else:
-        # Return a formatted string with the sentiment label and score
-        output = "For the given statement, the system response is "
-        output += f"'anger': {anger}, "
-        output += f"'disgust': {disgust}, "
-        output += f"'fear': {fear}, "
-        output += f"'joy': {joy} and "
-        output += f"'sadness': {sadness}. "
-        output += f"The dominant emotion is <strong>{dominant}<strong>."
-        return output
+
+    # Return a formatted string with the sentiment label and score
+    output = "For the given statement, the system response is "
+    output += f"'anger': {anger}, "
+    output += f"'disgust': {disgust}, "
+    output += f"'fear': {fear}, "
+    output += f"'joy': {joy} and "
+    output += f"'sadness': {sadness}. "
+    output += f"The dominant emotion is <strong>{dominant}<strong>."
+    return output
 
 @app.route("/")
 def render_index_page():
+    ''' Load the index.html file
+    '''
     return render_template('index.html')
 
 if __name__ == "__main__":
