@@ -23,9 +23,9 @@ def sent_detector():
     sadness = response['sadness']
     dominant = response['dominant_emotion']
 
-    # Check if the label is None, indicating an error or invalid input
-    if anger is None:
-        return "Invalid input! Try again."
+    # Check if the dominant is None, indicating an error or invalid input
+    if dominant is None:
+        return "Invalid text! Please try again."
     else:
         # Return a formatted string with the sentiment label and score
         output = "For the given statement, the system response is "
@@ -42,4 +42,4 @@ def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5006)
+    app.run(host="0.0.0.0", port=5007)
